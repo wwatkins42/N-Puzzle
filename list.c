@@ -99,11 +99,25 @@ int     list_contains(t_list **head, t_node *node)
     return (0);
 }
 
+t_node  *list_get_id(t_list **head, int id)
+{
+    t_list  *current;
+
+    current = *head;
+    while (current)
+    {
+        if (current->node.id == id)
+            return (&current->node);
+        current = current->next;
+    }
+    return (NULL);
+}
+
 t_node  *list_get_min(t_list **head)
 {
     t_list  *current;
     t_node  *node;
-    int     min;
+    float   min;
 
     min = MAXINT;
     current = *head;
@@ -130,8 +144,9 @@ void    list_print_content(t_list **head)
     {
         printf("\nList(%i):\n node.g_score: %.3f\n node.f_score: %.3f\n", i,
             current->node.g_score, current->node.f_score);
-        printf(" node.move: %d\n node.id: %d\n",
-            current->node.move, current->node.id);
+        printf(" node.move: %d\n node.id: %d\n node.pid: %d\n",
+            current->node.move, current->node.id, current->node.prev_id);
+        print_grid(current->node.grid, 3);
         current = current->next;
         i++;
     }

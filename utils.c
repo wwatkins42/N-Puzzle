@@ -11,10 +11,7 @@ int     compare_grids(t_env *env, int **a, int **b)
 
 int     compare_nodes(t_node *a, t_node *b)
 {
-    if (a->g_score == b->g_score && a->move == b->move &&
-        a->f_score == b->f_score && a->id == b->id)
-        return (1);
-    return (0);
+    return ((a->id == b->id && a->prev_id == b->prev_id));
 }
 
 t_node  *new_node(int **grid, float g_score, float f_score, int move, int *id)
@@ -27,16 +24,17 @@ t_node  *new_node(int **grid, float g_score, float f_score, int move, int *id)
     new->f_score = f_score;
     new->move = move;
     new->id = *id;
+    new->prev_id = -1;
     *id = *id + 1;
     return (new);
 }
 
-t_pos   find_cell_pos(int **grid, int value)
+t_pos   find_cell_pos(int **grid, int value, int size)
 {
     t_pos   pos;
 
-    for (pos.y = 0; pos.y < 3; pos.y++) // TMP
-        for (pos.x = 0; pos.x < 3; pos.x++)
+    for (pos.y = 0; pos.y < size; pos.y++)
+        for (pos.x = 0; pos.x < size; pos.x++)
             if (grid[pos.y][pos.x] == value)
                 return (pos);
     return (pos);
@@ -54,4 +52,14 @@ int     **clone_grid(int **grid, int size)
             clone[y][x] = grid[y][x];
     }
     return (clone);
+}
+
+void	print_grid(int **grid, int size)
+{
+	for (int y = 0; y < size; y++)
+	{
+		for (int x = 0; x < size; x++)
+			printf("%d ", grid[y][x]);
+		printf("\n");
+	}
 }
