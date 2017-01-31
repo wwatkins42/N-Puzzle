@@ -146,7 +146,7 @@ void    list_print_content(t_list **head)
             current->node.g_score, current->node.f_score);
         printf(" node.move: %d\n node.id: %d\n node.pid: %d\n",
             current->node.move, current->node.id, current->node.prev_id);
-        print_grid(current->node.grid, 3);
+        print_grid(current->node.grid, 5);
         current = current->next;
         i++;
     }

@@ -48,6 +48,19 @@ int     **clone_grid(int **grid, int size)
     for (int y = 0; y < size; y++)
     {
         clone[y] = (int*)malloc(sizeof(int) * size);
+        memcpy(&(clone[y][0]), &(grid[y][0]), sizeof(int) * size);
+    }
+    return (clone);
+}
+
+int     **clone_grid_old(int **grid, int size)
+{
+    int **clone = NULL;
+
+    clone = (int**)malloc(sizeof(int*) * size + 1);
+    for (int y = 0; y < size; y++)
+    {
+        clone[y] = (int*)malloc(sizeof(int) * size + 1);
         for (int x = 0; x < size; x++)
             clone[y][x] = grid[y][x];
     }
@@ -58,8 +71,10 @@ void	print_grid(int **grid, int size)
 {
 	for (int y = 0; y < size; y++)
 	{
+        printf("[");
 		for (int x = 0; x < size; x++)
-			printf("%d ", grid[y][x]);
-		printf("\n");
+			printf("% 3d", grid[y][x]);
+		printf(" ]\n");
 	}
+    printf("\n");
 }

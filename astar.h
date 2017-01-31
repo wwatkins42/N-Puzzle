@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <math.h>
+#include <string.h>
 
 typedef struct  s_node
 {

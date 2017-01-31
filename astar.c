@@ -78,7 +78,7 @@ t_list  *astar(t_env *env, int **start, int **goal)
     t_node  *startNode;
     t_node  *current;
     t_node  *successor;
-    float   t_gScore = 0.0;
+    float   t_gScore = 0;
     int     id = 0;
 
     startNode = new_node(start, 0, manhattan(env, start, goal), S, &id);
@@ -90,15 +90,13 @@ t_list  *astar(t_env *env, int **start, int **goal)
             return (reconstruct_path(&closedList, current));
         list_pop_node(&openList, current);
         list_push_head(&closedList, current);
-
-        print_grid(current->grid, env->size);
-        printf("\n");
-
         for (int move = 1; move < 5; move++)
         {
             successor = get_successor(env, current->grid, move, &id);
             if (successor)
             {
+                if (move == 1)
+                    print_grid(current->grid, env->size);
                 if (list_contains(&closedList, successor))
                     continue;
                 t_gScore = current->g_score + 1;
@@ -106,7 +104,7 @@ t_list  *astar(t_env *env, int **start, int **goal)
                 {
                     successor->prev_id = current->id;
                     successor->g_score = t_gScore;
-                    successor->f_score = successor->g_score + manhattan(env, successor->grid, goal);
+                    successor->f_score = successor->g_score + 1.0 * manhattan(env, successor->grid, goal);
                     list_push_head(&openList, successor);
                 }
             }
