@@ -53,7 +53,7 @@ int manhattan(t_env *env, int **curr, int **goal)
     return (score);
 }
 
-int astar(t_env *env, int **start, int **goal)
+t_node *astar(t_env *env, int **start, int **goal)
 {
     t_list  *openList;
     t_list  *closedList;
@@ -71,7 +71,7 @@ int astar(t_env *env, int **start, int **goal)
 
         if (compare_grids(env, current->grid, goal))
         {
-            return (1); // TMP
+            return (current); // TMP
         }
         list_pop_node(&openList, current);
         list_push_head(&closedList, current);
@@ -94,13 +94,23 @@ int astar(t_env *env, int **start, int **goal)
             }
         }
     }
-    return (0);
+    return (NULL);
 }
 
 void    initialize_env(t_env *env)
 {
     env->size = 3;
     env->n = env->size * env->size - 1;
+}
+
+void	print_grid(int **grid, int size)
+{
+	for (int y = 0; y < size; y++)
+	{
+		for (int x = 0; x < size; x++)
+			printf("%d ", grid[y][x]);
+		printf("\n");
+	}
 }
 
 int main(void)
@@ -137,7 +147,8 @@ int main(void)
     start[2][2] = 6;
 
     initialize_env(&env);
-    astar(&env, start, goal);
+    t_node *end = astar(&env, start, goal);
+    print_grid(end->grid, 3);
     return (0);
 }
 
