@@ -42,19 +42,6 @@ t_pos   find_cell_pos(int **grid, int value, int size)
 
 int     **clone_grid(int **grid, int size)
 {
-    int **clone;
-
-    clone = (int**)malloc(sizeof(int*) * size);
-    for (int y = 0; y < size; y++)
-    {
-        clone[y] = (int*)malloc(sizeof(int) * size);
-        memcpy(&(clone[y][0]), &(grid[y][0]), sizeof(int) * size);
-    }
-    return (clone);
-}
-
-int     **clone_grid_old(int **grid, int size)
-{
     int **clone = NULL;
 
     clone = (int**)malloc(sizeof(int*) * size + 1);

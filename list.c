@@ -133,7 +133,7 @@ t_node  *list_get_min(t_list **head)
     return (node);
 }
 
-void    list_print_content(t_list **head)
+void    list_print_content(t_list **head, int size)
 {
     t_list  *current;
     int     i;
@@ -146,7 +146,7 @@ void    list_print_content(t_list **head)
             current->node.g_score, current->node.f_score);
         printf(" node.move: %d\n node.id: %d\n node.pid: %d\n",
             current->node.move, current->node.id, current->node.prev_id);
-        print_grid(current->node.grid, 5);
+        print_grid(current->node.grid, size);
         current = current->next;
         i++;
     }
