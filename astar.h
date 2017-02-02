@@ -10,7 +10,7 @@
 #define L 2
 #define U 3
 #define D 4
-#define MAXINT 10e4
+#define MAXINT 10e6
 
 typedef struct  s_node
 {
@@ -79,7 +79,5 @@ void    initialize_env(t_env *env);
 **  parse.h
 */
 char    *get_cmd_line(char *cmd, char *arg);
-// char    *get_cmd_line(char *filename);
-// int     **parse_file(char *filename);
 int     parse_file(t_env *env, char *filename);
 int     generate_solution(t_env *env);
