@@ -74,11 +74,11 @@ t_list  *reconstruct_path(t_list **head, t_node *current)
 
 t_list  *astar(t_env *env, int **start, int **goal)
 {
-    t_list  *openList;
-    t_list  *closedList;
-    t_node  *startNode;
+    t_list  *openList = NULL;
+    t_list  *closedList = NULL;
+    t_node  *startNode = NULL;
     t_node  current;
-    t_node  *successor;
+    t_node  *successor = NULL;
     float   t_gScore = 0;
     int     id = 0;
 

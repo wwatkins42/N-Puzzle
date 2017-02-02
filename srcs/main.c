@@ -10,13 +10,13 @@ void    initialize(t_env *env, char *filename)
 int main(int argc, char **argv)
 {
     t_env   env;
-    int     **goal;
-    int     **start;
     t_list  *path;
 
     if (argc < 2)
         return (0); // CREATE ALT START
     initialize(&env, argv[1]);
+	// print_grid(env.start, env.size);
+	// print_grid(env.goal, env.size);
     path = astar(&env, env.start, env.goal);
     list_print_content(&path, env.size);
     return (0);
