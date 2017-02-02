@@ -51,7 +51,7 @@ void    list_push_tail(t_list **head, t_node *node);
 void    list_pop_head(t_list **head);
 void    list_pop_tail(t_list **head);
 void    list_pop_node(t_list **head, t_node *node);
-int     list_contains(t_list **head, t_node *node);
+int     list_contains(int size, t_list **head, t_node *node);
 void    list_print_content(t_list **head, int size);
 t_node  *list_get_id(t_list **head, int id);
 t_node  *list_get_min(t_list **head);
@@ -59,7 +59,7 @@ t_node  *list_get_min(t_list **head);
 /*
 **  utils.c
 */
-int     compare_grids(t_env *env, int **a, int **b);
+int     compare_grids(int size, int **a, int **b);
 int     compare_nodes(t_node *a, t_node *b);
 t_node  *new_node(int **grid, float g_score, float f_score, int move, int *id);
 t_pos   find_cell_pos(int **grid, int value, int size);

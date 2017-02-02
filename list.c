@@ -85,14 +85,14 @@ void    list_pop_node(t_list **head, t_node *node)
     }
 }
 
-int     list_contains(t_list **head, t_node *node)
+int     list_contains(int size, t_list **head, t_node *node)
 {
     t_list  *current;
 
     current = *head;
     while (current)
     {
-        if (compare_nodes(&current->node, node))
+        if (compare_grids(size, current->node.grid, node->grid))
             return (1);
         current = current->next;
     }

@@ -1,9 +1,9 @@
 #include "astar.h"
 
-int     compare_grids(t_env *env, int **a, int **b)
+int     compare_grids(int size, int **a, int **b)
 {
-    for (int y = 0; y < env->size; y++)
-        for (int x = 0; x < env->size; x++)
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++)
             if (a[y][x] != b[y][x])
                 return (0);
     return (1);
