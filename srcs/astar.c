@@ -36,32 +36,6 @@ t_node  *get_successor(t_env *env, int **grid, int move, int *id)
     return (successor);
 }
 
-float       linear_conflict(t_env *env, int **cur)
-{
-    float cost = 0;
-
-    cost += linear_vertical_conflict(env, cur);
-    cost += linear_horizontal_conflict(env, cur);
-    return (cost);
-}
-
-float     manhattan(t_env *env, int **curr, int **goal)
-{
-    t_pos   c;
-    t_pos   g;
-    float   dx = 0;
-    float   dy = 0;
-
-    for (int i = 1; i < env->n; i++)
-    {
-        c = find_cell_pos(curr, i, env->size);
-        g = find_cell_pos(goal, i, env->size);
-        dx += abs(c.x - g.x);
-        dy += abs(c.y - g.y);
-    }
-    return (dx + dy);
-}
-
 t_list  *reconstruct_path(t_list **head, t_node *current)
 {
     t_list  *path;

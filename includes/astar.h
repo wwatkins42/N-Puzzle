@@ -1,3 +1,6 @@
+#ifndef NPUZZLE_H
+#define NPUZZLE_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -39,11 +42,6 @@ typedef struct  s_pos
     };
 }               t_pos;
 
-// typedef struct  s_pos
-// {
-//     int x;
-//     int y;
-// }               t_pos;
 
 typedef struct  s_pairs
 {
@@ -56,6 +54,7 @@ typedef struct  s_env
 {
     int     size;
     int     n;
+	int		sum;
     int     **start;
     int     **goal;
     t_pairs *pairs;
@@ -91,8 +90,16 @@ void	print_grid(int **grid, int size);
 t_list  *astar(t_env *env, int **start, int **goal);
 t_list  *reconstruct_path(t_list **head, t_node *current);
 t_node  *get_successor(t_env *env, int **grid, int move, int *id);
-float   manhattan(t_env *env, int **curr, int **goal);
 void    initialize_env(t_env *env);
+
+/*
+** heuristic.c
+*/
+
+void    create_pairs(t_pairs *pairs, int **goal, int size, int sum);
+t_pairs *generate_pairs(t_env *env, int **cur);
+float	manhattan(t_env *env, int **curr, int **goal);
+float	linear_conflict(t_env *env, int **cur);
 
 /*
 **  parse.h
@@ -100,3 +107,5 @@ void    initialize_env(t_env *env);
 char    *get_cmd_line(char *cmd, char *arg);
 int     parse_file(t_env *env, char *filename);
 int     generate_solution(t_env *env);
+
+#endif

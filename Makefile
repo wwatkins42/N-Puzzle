@@ -6,7 +6,7 @@
 #    By: tglaudel <tglaudel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/02 16:02:35 by tglaudel          #+#    #+#              #
-#    Updated: 2017/02/02 16:10:33 by tglaudel         ###   ########.fr        #
+#    Updated: 2017/02/03 13:12:47 by tglaudel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS_NAME = main.c \
 		   list.c \
 		   parse.c \
 		   utils.c \
+		   heuristic.c \
 
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
