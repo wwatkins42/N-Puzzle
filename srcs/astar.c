@@ -36,53 +36,6 @@ t_node  *get_successor(t_env *env, int **grid, int move, int *id)
     return (successor);
 }
 
-float       linear_vertical_conflict(t_env *env, int **cur)
-{
-    int max;
-    int cell;
-    float cost = 0;
-
-    for (int y = 0; y < env->size; y++)
-    {
-        max = -1;
-        for (int x = 0; x < env->size; x++)
-        {
-            cell = cur[y][x];
-            if (cell != 0 && (cell - 1) / env->size == y)
-            {
-                if (cell > max)
-                    max = cell;
-                else
-                    cost += 2;
-            }
-        }
-    }
-    return (cost);
-}
-float       linear_horizontal_conflict(t_env *env, int **cur)
-{
-    int max;
-    int cell;
-    float cost = 0;
-
-    for (int y = 0; y < env->size; y++)
-    {
-        max = -1;
-        for (int x = 0; x < env->size; x++)
-        {
-            cell = cur[y][x];
-            if (cell != 0 && cell % env->size == x + 1)
-            {
-                if (cell > max)
-                    max = cell;
-                else
-                    cost += 2;
-            }
-        }
-    }
-    return (cost);
-}
-
 float       linear_conflict(t_env *env, int **cur)
 {
     float cost = 0;
