@@ -36,6 +36,62 @@ t_node  *get_successor(t_env *env, int **grid, int move, int *id)
     return (successor);
 }
 
+float       linear_vertical_conflict(t_env *env, int **cur)
+{
+    int max;
+    int cell;
+    float cost = 0;
+
+    for (int y = 0; y < env->size; y++)
+    {
+        max = -1;
+        for (int x = 0; x < env->size; x++)
+        {
+            cell = cur[y][x];
+            if (cell != 0 && (cell - 1) / env->size == y)
+            {
+                if (cell > max)
+                    max = cell;
+                else
+                    cost += 2;
+            }
+        }
+    }
+    return (cost);
+}
+float       linear_horizontal_conflict(t_env *env, int **cur)
+{
+    int max;
+    int cell;
+    float cost = 0;
+
+    for (int y = 0; y < env->size; y++)
+    {
+        max = -1;
+        for (int x = 0; x < env->size; x++)
+        {
+            cell = cur[y][x];
+            if (cell != 0 && cell % env->size == x + 1)
+            {
+                if (cell > max)
+                    max = cell;
+                else
+                    cost += 2;
+            }
+        }
+    }
+    return (cost);
+}
+
+float       linear_conflict(t_env *env, int **cur)
+{
+    float cost = 0;
+
+    cost += linear_vertical_conflict(env, cur);
+    cost += linear_horizontal_conflict(env, cur);
+    return (cost);
+}
+
 float     manhattan(t_env *env, int **curr, int **goal)
 {
     t_pos   c;
@@ -105,7 +161,7 @@ t_list  *astar(t_env *env, int **start, int **goal)
                 {
                     successor->prev_id = current.id;
                     successor->g_score = t_gScore;
-                    successor->f_score = successor->g_score + 10.0 * manhattan(env, successor->grid, goal);
+                    successor->f_score = successor->g_score + 10.0 * (manhattan(env, successor->grid, goal) + linear_conflict(env, successor->grid));
                     list_push_head(&openList, successor);
                 }
             }

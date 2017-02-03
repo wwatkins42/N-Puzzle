@@ -30,16 +30,35 @@ typedef struct  s_list
 
 typedef struct  s_pos
 {
+    union {
+        struct {
+            int x;
+            int y;
+        };
+        int v[2];
+    };
+}               t_pos;
+
+// typedef struct  s_pos
+// {
+//     int x;
+//     int y;
+// }               t_pos;
+
+typedef struct  s_pairs
+{
     int x;
     int y;
-}               t_pos;
+    t_pos *p;
+}               t_pairs;
 
 typedef struct  s_env
 {
-    int size;
-    int n;
-    int **start;
-    int **goal;
+    int     size;
+    int     n;
+    int     **start;
+    int     **goal;
+    t_pairs *pairs;
 }               t_env;
 
 /*
