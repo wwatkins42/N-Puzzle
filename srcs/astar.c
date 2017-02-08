@@ -88,7 +88,7 @@ t_list  *astar(t_env *env, int **start, int **goal)
                 {
                     successor->prev_id = current.id;
                     successor->g_score = t_gScore;
-                    successor->f_score = successor->g_score + 10.0 * (manhattan(env, successor->grid, goal) + linear_conflict(env, successor->grid));
+                    successor->f_score = successor->g_score + WEIGHT * (manhattan(env, successor->grid, goal) + linear_conflict(env, successor->grid));
                     list_push_head(&openList, successor);
                 }
             }

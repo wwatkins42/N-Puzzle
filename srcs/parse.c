@@ -71,3 +71,25 @@ int     generate_solution(t_env *env)
     ft_strdel(&siz);
     return (1);
 }
+
+int     generate_random_puzzle(t_env *env)
+{
+    FILE    *fp;
+    char    *line;
+    char    *cmd;
+    char    *siz;
+
+    env->size = 3;
+    env->n = env->size * env->size + ((env->size + 1) % 2);
+    siz = ft_itoa(env->size);
+    cmd  = get_cmd_line("ruby random_create.rb ", siz);
+    fp = popen(cmd, "r");
+    line = malloc(sizeof(char) * (env->n * 16));
+    fscanf(fp, "%s", line);
+    pclose(fp);
+    env->start = grid_from_str(line, ',', env->size);
+    ft_strdel(&line);
+    ft_strdel(&cmd);
+    ft_strdel(&siz);
+    return (1);
+}

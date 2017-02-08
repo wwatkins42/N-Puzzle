@@ -16,6 +16,7 @@ end
 
 if $PROGRAM_NAME == __FILE__
   require_relative 'solvability'
+  require_relative 'generate_solution'
 
   puzzle, n = parse_puzzle(ARGV[0])
   if (!is_solvable(puzzle.flatten, generate_solution(n).flatten, n))

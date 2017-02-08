@@ -93,6 +93,5 @@ float       linear_conflict(t_env *env, int **cur)
 	{
 		cost += compare_pairs(env, pairs[i].p, env->pairs[i].p);
 	}
-	// printf("%d\n", cost);
     return (cost);
 }

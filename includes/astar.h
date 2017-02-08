@@ -14,6 +14,7 @@
 #define U 3
 #define D 4
 #define MAXINT 10e6
+#define WEIGHT 10.0
 
 typedef struct  s_node
 {
@@ -107,5 +108,6 @@ float	linear_conflict(t_env *env, int **cur);
 char    *get_cmd_line(char *cmd, char *arg);
 int     parse_file(t_env *env, char *filename);
 int     generate_solution(t_env *env);
+int     generate_random_puzzle(t_env *env);
 
 #endif
