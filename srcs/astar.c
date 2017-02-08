@@ -42,6 +42,8 @@ t_list  *reconstruct_path(t_list **head, t_node *current)
     t_node  *tmp;
     t_node  *curr;
 
+    if (*head == NULL)
+        return (NULL);
     path = list_new(current);
     curr = current;
     while (1)

@@ -79,7 +79,7 @@ int     generate_random_puzzle(t_env *env)
     char    *cmd;
     char    *siz;
 
-    env->size = 3;
+    env->size = 4;
     env->n = env->size * env->size + ((env->size + 1) % 2);
     siz = ft_itoa(env->size);
     cmd  = get_cmd_line("ruby random_create.rb ", siz);
