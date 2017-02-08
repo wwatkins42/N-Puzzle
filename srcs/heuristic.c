@@ -39,7 +39,6 @@ int			compare_pairs(t_env *env, t_pos *cur, t_pos *goal)
 			if ((cur[i].v[0] == goal[j].v[0] || cur[i].v[0] == goal[j].v[1]) &&
 				(cur[i].v[1] == goal[j].v[0] || cur[i].v[1] == goal[j].v[1]) &&
 				(cur[i].v[0] - cur[i].v[1] != goal[j].v[0] - goal[j].v[1]))
-				// printf("(%d, %d) (%d, %d)\n", cur[i].v[0], cur[i].v[1], goal[j].v[0], goal[j].v[1]);
 				cost += 2;
 		}
 	}
@@ -60,8 +59,6 @@ t_pairs    *generate_pairs(t_env *env, int **cur)
         else
             pairs[i].y = i - env->size;
         create_pairs(&pairs[i], cur, env->size, env->sum);
-        // for (int c = 0; c < env->sum; c++)
-            // printf("%d %d (%d, %d)\n", pairs[i].x, pairs[i].y, pairs[i].p[c].v[0], pairs[i].p[c].v[1]);
     }
     return (pairs);
 }

@@ -159,7 +159,7 @@ void    list_print_content(t_list **head, int size)
         printf("\nList(%i):\n node.g_score: %.3f\n node.f_score: %.3f\n", i,
             current->node.g_score, current->node.f_score);
         printf(" node.move: %d\n node.id: %d\n node.pid: %d\n",
-            current->node.move, current->node.id, current->node.prev_id);
+            current->node.move, current->node.id, current->node.pid);
         print_grid(current->node.grid, size);
         current = current->next;
         i++;

@@ -6,7 +6,7 @@
 #    By: tglaudel <tglaudel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/02 16:02:35 by tglaudel          #+#    #+#              #
-#    Updated: 2017/02/08 09:16:02 by wwatkins         ###   ########.fr        #
+#    Updated: 2017/02/08 14:11:21 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS_NAME = main.c \
 		   parse.c \
 		   utils.c \
 		   heuristic.c \
+		   priority_queue.c
 
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
