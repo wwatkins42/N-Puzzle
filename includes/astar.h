@@ -51,6 +51,13 @@ typedef struct  s_pairs
     t_pos *p;
 }               t_pairs;
 
+typedef struct  s_stats
+{
+    int openList_states_complexity;
+    int openList_states_maximum;
+    int pathList_length;
+}               t_stats;
+
 typedef struct  s_env
 {
     int     size;
@@ -59,6 +66,7 @@ typedef struct  s_env
     int     **start;
     int     **goal;
     t_pairs *pairs;
+    t_stats stats;
 }               t_env;
 
 /*
@@ -71,6 +79,7 @@ void    list_pop_head(t_list **head);
 void    list_pop_tail(t_list **head);
 void    list_pop_node(t_list **head, t_node *node);
 int     list_contains(int size, t_list **head, t_node *node);
+int     list_size(t_list **head);
 void    list_print_content(t_list **head, int size);
 t_node  *list_get_id(t_list **head, int id);
 t_node  *list_get_min(t_list **head);

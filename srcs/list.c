@@ -133,6 +133,20 @@ t_node  *list_get_min(t_list **head)
     return (node);
 }
 
+int    list_size(t_list **head)
+{
+    t_list  *current;
+    int        size = 0;
+
+    current = *head;
+    while (current)
+    {
+        current = current->next;
+        size++;
+    }
+    return (size);
+}
+
 void    list_print_content(t_list **head, int size)
 {
     t_list  *current;

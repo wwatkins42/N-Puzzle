@@ -63,6 +63,7 @@ t_list  *astar(t_env *env, int **start, int **goal)
     t_node  current;
     t_node  *successor = NULL;
     float   t_gScore = 0;
+    int     openList_size = 0;
     int     id = 0;
 
     startNode = new_node(start, 0, manhattan(env, start, goal), S, &id);
@@ -74,9 +75,6 @@ t_list  *astar(t_env *env, int **start, int **goal)
             return (reconstruct_path(&closedList, &current));
         list_pop_node(&openList, &current);
         list_push_head(&closedList, &current);
-
-        print_grid(current.grid, env->size);
-
         for (int move = 1; move < 5; move++)
         {
             if ((successor = get_successor(env, current.grid, move, &id)))
@@ -90,9 +88,13 @@ t_list  *astar(t_env *env, int **start, int **goal)
                     successor->g_score = t_gScore;
                     successor->f_score = successor->g_score + WEIGHT * (manhattan(env, successor->grid, goal) + linear_conflict(env, successor->grid));
                     list_push_head(&openList, successor);
+                    env->stats.openList_states_complexity++;
                 }
             }
         }
+        openList_size = list_size(&openList);
+        if (env->stats.openList_states_maximum < openList_size)
+            env->stats.openList_states_maximum = openList_size;
     }
     return (NULL);
 }
