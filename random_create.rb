@@ -23,6 +23,6 @@ if $PROGRAM_NAME == __FILE__
 
     n = ARGV[0].to_i
     puzzle = generate_solution(n)
-    puzzle = random_puzzle(puzzle, n, 2)#8192)
+    puzzle = random_puzzle(puzzle, n, 8192)
     puts "#{puzzle.flatten.join(',')}"
 end
