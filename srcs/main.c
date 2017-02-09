@@ -10,9 +10,9 @@ void    initialize(t_env *env, char *filename, int argc)
         exit(1);
     }
     generate_solution(env);
-	env->sum = (int)(env->size * (float)((env->size - 1) * 0.5));
+    env->sum = (int)(env->size * (float)((env->size - 1) * 0.5));
     env->pairs = generate_pairs(env, env->goal);
-	linear_conflict(env, env->start);
+    linear_conflict(env, env->start);
     env->stats.openList_states_maximum = 0;
     env->stats.openList_states_complexity = 0;
     env->stats.pathList_length = 0;
