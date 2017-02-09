@@ -33,7 +33,6 @@ int			compare_pairs(t_env *env, t_pos *cur, t_pos *goal)
 	int cost = 0;
 
 	for (int i = 0; i < env->sum; i++)
-	{
 		for (int j = 0; j < env->sum; j++)
 		{
 			if ((cur[i].v[0] == goal[j].v[0] || cur[i].v[0] == goal[j].v[1]) &&
@@ -41,7 +40,6 @@ int			compare_pairs(t_env *env, t_pos *cur, t_pos *goal)
 				(cur[i].v[0] - cur[i].v[1] != goal[j].v[0] - goal[j].v[1]))
 				cost += 2;
 		}
-	}
 	return (cost);
 }
 
@@ -87,8 +85,6 @@ float       linear_conflict(t_env *env, int **cur)
 
 	pairs = generate_pairs(env, cur);
 	for (int i = 0; i < env->size * 2; i++)
-	{
 		cost += compare_pairs(env, pairs[i].p, env->pairs[i].p);
-	}
     return (cost);
 }

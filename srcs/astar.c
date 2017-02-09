@@ -9,17 +9,17 @@ t_node  *get_successor(t_env *env, int **grid, int move, int *id)
     successor = NULL;
     clone = clone_grid(grid, env->size);
     pos = find_cell_pos(grid, 0, env->size);
-    if (move == U && pos.y > 0)
+    if (move == D && pos.y > 0)
     {
         clone[pos.y][pos.x] = grid[pos.y - 1][pos.x];
         clone[pos.y - 1][pos.x] = grid[pos.y][pos.x];
-        successor = new_node(clone, 0, MAXINT + 1, U, id);
+        successor = new_node(clone, 0, MAXINT + 1, D, id);
     }
-    else if (move == D && pos.y + 1 < env->size)
+    else if (move == U && pos.y + 1 < env->size)
     {
         clone[pos.y][pos.x] = grid[pos.y + 1][pos.x];
         clone[pos.y + 1][pos.x] = grid[pos.y][pos.x];
-        successor = new_node(clone, 0, MAXINT + 1, D, id);
+        successor = new_node(clone, 0, MAXINT + 1, U, id);
     }
     else if (move == R && pos.x > 0)
     {
@@ -42,7 +42,7 @@ t_list  *reconstruct_path(t_heap *heap, t_node *current)
     t_node  *tmp;
     t_node  *curr;
 
-    if (heap == NULL)
+    if (heap->n == 0)
         return (NULL);
     path = list_new(current);
     curr = current;

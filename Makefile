@@ -6,7 +6,7 @@
 #    By: tglaudel <tglaudel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/02 16:02:35 by tglaudel          #+#    #+#              #
-#    Updated: 2017/02/08 14:11:21 by wwatkins         ###   ########.fr        #
+#    Updated: 2017/02/08 15:35:28 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ LIBFT = libft/libft.a
 
 INCLUDES = ./libft/include/
 
-CFLAGS = -Wall -Werror -Wextra -O3
+CFLAGS = -Wall -Werror -Wextra -Ofast -flto
 
 all: omkdir $(NAME)
 
