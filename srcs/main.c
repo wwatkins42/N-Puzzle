@@ -6,7 +6,7 @@ void    initialize(t_env *env, char *filename, int argc)
         generate_random_puzzle(env);
     else if (!parse_file(env, filename))
     {
-        printf("Puzzle is unsolvable.\n");
+        printf("Puzzle is incorrect or unsolvable.\n");
         exit(1);
     }
     generate_solution(env);
@@ -39,6 +39,7 @@ void    print_output(t_env *env, t_list **head)
     printf(" - OpenHeap maximum: %d (size complexity)\n", env->stats.openList_states_maximum);
     printf(" - OpenHeap complexity: %d (time complexity)\n", env->stats.openList_states_complexity);
 }
+
 
 int     main(int argc, char **argv)
 {
