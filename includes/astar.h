@@ -15,6 +15,10 @@
 #define D 4
 #define MAXINT 10e6
 #define WEIGHT 10.0
+#define OPT_STRING "h"
+#define MANHATTAN 1<<1
+#define MISSPLACE 1<<2
+#define LINEAR_C  1<<3
 
 typedef struct  s_node
 {
@@ -65,6 +69,8 @@ typedef struct  s_env
 	int		sum;
     int     **start;
     int     **goal;
+	int		opt_heuristic;
+	int		opt;
     t_pairs *pairs;
     t_stats stats;
 }               t_env;
@@ -110,6 +116,7 @@ void    create_pairs(t_pairs *pairs, int **goal, int size, int sum);
 t_pairs *generate_pairs(t_env *env, int **cur);
 float	manhattan(t_env *env, int **curr, int **goal);
 float	linear_conflict(t_env *env, int **cur);
+float	missplaced_tiles(t_env *env, int **cur);
 
 /*
 **  parse.h
