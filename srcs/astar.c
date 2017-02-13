@@ -9,17 +9,17 @@ t_node  *get_successor(t_env *env, int **grid, int move, int *id)
     successor = NULL;
     clone = clone_grid(grid, env->size);
     pos = find_cell_pos(grid, 0, env->size);
-    if (move == U && pos.y > 0)
+    if (move == D && pos.y > 0)
     {
         clone[pos.y][pos.x] = grid[pos.y - 1][pos.x];
         clone[pos.y - 1][pos.x] = grid[pos.y][pos.x];
-        successor = new_node(clone, 0, MAXINT + 1, U, id);
+        successor = new_node(clone, 0, MAXINT + 1, D, id);
     }
-    else if (move == D && pos.y + 1 < env->size)
+    else if (move == U && pos.y + 1 < env->size)
     {
         clone[pos.y][pos.x] = grid[pos.y + 1][pos.x];
         clone[pos.y + 1][pos.x] = grid[pos.y][pos.x];
-        successor = new_node(clone, 0, MAXINT + 1, D, id);
+        successor = new_node(clone, 0, MAXINT + 1, U, id);
     }
     else if (move == R && pos.x > 0)
     {
@@ -36,19 +36,21 @@ t_node  *get_successor(t_env *env, int **grid, int move, int *id)
     return (successor);
 }
 
-t_list  *reconstruct_path(t_list **head, t_node *current)
+t_list  *reconstruct_path(t_heap *heap, t_node *current)
 {
     t_list  *path;
     t_node  *tmp;
     t_node  *curr;
 
+    if (heap->n == 0)
+        return (NULL);
     path = list_new(current);
     curr = current;
     while (1)
     {
-        tmp = list_get_id(head, curr->prev_id);
+        tmp = heap_get_node_by_id(heap, curr->pid);
         list_push_head(&path, tmp);
-        if (curr->prev_id == 0)
+        if (curr->pid == 0)
             break;
         curr = tmp;
     }
@@ -57,39 +59,41 @@ t_list  *reconstruct_path(t_list **head, t_node *current)
 
 t_list  *astar(t_env *env, int **start, int **goal)
 {
-    t_list  *openList = NULL;
-    t_list  *closedList = NULL;
-    t_node  *startNode = NULL;
+    t_heap  *openHeap = NULL;
+    t_heap  *closedHeap = NULL;
     t_node  current;
     t_node  *successor = NULL;
     float   t_gScore = 0;
-	float	t_fScore = 0;
+
+	  float	t_fScore = 0;
     int     openList_size = 0;
     int     id = 0;
-	int 	temp_size;
+	  int 	temp_size;
 
-    startNode = new_node(start, 0, manhattan(env, start, goal), S, &id);
-    openList = list_new(startNode);
-    while (openList)
+    openHeap = heap_new();
+    closedHeap = heap_new();
+    heap_push(openHeap, new_node(start, 0, manhattan(env, start, goal), S, &id));
+    while (openHeap)
     {
-        current = *list_get_min(&openList);
+        current = openHeap->nodes[0];
         if (compare_grids(env->size, current.grid, goal))
-            return (reconstruct_path(&closedList, &current));
-        list_pop_node(&openList, &current);
-        list_push_head(&closedList, &current);
-		// print_grid(current.grid, env->size);
+          return (reconstruct_path(closedHeap, &current));
+        heap_pop(openHeap);
+        heap_push(closedHeap, &current);
         for (int move = 1; move < 5; move++)
         {
             if ((successor = get_successor(env, current.grid, move, &id)))
             {
-                if (list_contains(env->size, &closedList, successor))
+                if (heap_contains(closedHeap, successor, env->size))
                     continue;
                 t_gScore = current.g_score + 1.0;
 				t_fScore = 0;
-                if (!list_contains(env->size, &openList, successor))
+                if (!heap_contains(openHeap, successor, env->size))
+
                 {
-                    successor->prev_id = current.id;
+                    successor->pid = current.id;
                     successor->g_score = t_gScore;
+
 					successor->f_score = 0;
 					temp_size = env->size;
 					if ((MANHATTAN & env->opt_heuristic) > 1)
@@ -99,15 +103,13 @@ t_list  *astar(t_env *env, int **start, int **goal)
 					if ((MISSPLACE & env->opt_heuristic) > 1)
 						t_fScore += missplaced_tiles(env, successor->grid);
 					successor->f_score = successor->g_score + t_fScore;
-
-                    list_push_head(&openList, successor);
+            heap_push(openHeap, successor);
                     env->stats.openList_states_complexity++;
                 }
             }
         }
-        openList_size = list_size(&openList);
-        if (env->stats.openList_states_maximum < openList_size)
-            env->stats.openList_states_maximum = openList_size;
+        if (env->stats.openList_states_maximum < openHeap->n)
+            env->stats.openList_states_maximum = openHeap->n;
     }
     return (NULL);
 }

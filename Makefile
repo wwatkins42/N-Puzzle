@@ -6,7 +6,7 @@
 #    By: tglaudel <tglaudel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/02 16:02:35 by tglaudel          #+#    #+#              #
-#    Updated: 2017/02/03 13:12:47 by tglaudel         ###   ########.fr        #
+#    Updated: 2017/02/08 15:35:28 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS_NAME = main.c \
 		   parse.c \
 		   utils.c \
 		   heuristic.c \
+		   priority_queue.c
 
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
@@ -33,7 +34,7 @@ LIBFT = libft/libft.a
 
 INCLUDES = ./libft/include/
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -Ofast -flto
 
 all: omkdir $(NAME)
 

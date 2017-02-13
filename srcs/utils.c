@@ -7,12 +7,11 @@ int     compare_grids(int size, int **a, int **b)
             if (a[y][x] != b[y][x])
                 return (0);
     return (1);
-
 }
 
 int     compare_nodes(t_node *a, t_node *b)
 {
-    return ((a->id == b->id && a->prev_id == b->prev_id));
+    return ((a->id == b->id && a->pid == b->pid));
 }
 
 t_node  *new_node(int **grid, float g_score, float f_score, int move, int *id)
@@ -25,7 +24,7 @@ t_node  *new_node(int **grid, float g_score, float f_score, int move, int *id)
     new->f_score = f_score;
     new->move = move;
     new->id = *id;
-    new->prev_id = -1;
+    new->pid = -1;
     *id = *id + 1;
     return (new);
 }
