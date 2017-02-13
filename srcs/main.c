@@ -74,7 +74,7 @@ static int				get_opt(char **av, char *l_opt)
 
 void    initialize(t_env *env, char *filename, int argc)
 {
-    if (argc < 2)
+    if (argc < 2 || !filename)
         generate_random_puzzle(env);
     else if (!parse_file(env, filename))
     {
