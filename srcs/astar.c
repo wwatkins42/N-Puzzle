@@ -64,7 +64,11 @@ t_list  *astar(t_env *env, int **start, int **goal)
     t_node  current;
     t_node  *successor = NULL;
     float   t_gScore = 0;
+
+	  float	t_fScore = 0;
+    int     openList_size = 0;
     int     id = 0;
+	  int 	temp_size;
 
     openHeap = heap_new();
     closedHeap = heap_new();
@@ -73,7 +77,7 @@ t_list  *astar(t_env *env, int **start, int **goal)
     {
         current = openHeap->nodes[0];
         if (compare_grids(env->size, current.grid, goal))
-            return (reconstruct_path(closedHeap, &current));
+          return (reconstruct_path(closedHeap, &current));
         heap_pop(openHeap);
         heap_push(closedHeap, &current);
         for (int move = 1; move < 5; move++)
@@ -83,12 +87,23 @@ t_list  *astar(t_env *env, int **start, int **goal)
                 if (heap_contains(closedHeap, successor, env->size))
                     continue;
                 t_gScore = current.g_score + 1.0;
+				t_fScore = 0;
                 if (!heap_contains(openHeap, successor, env->size))
+
                 {
                     successor->pid = current.id;
                     successor->g_score = t_gScore;
-                    successor->f_score = successor->g_score + WEIGHT * (manhattan(env, successor->grid, goal) + linear_conflict(env, successor->grid));
-                    heap_push(openHeap, successor);
+
+					successor->f_score = 0;
+					temp_size = env->size;
+					if ((MANHATTAN & env->opt_heuristic) > 1)
+						t_fScore += WEIGHT * manhattan(env, successor->grid, goal);
+					if ((LINEAR_C & env->opt_heuristic) > 1)
+						t_fScore += WEIGHT * linear_conflict(env, successor->grid);
+					if ((MISSPLACE & env->opt_heuristic) > 1)
+						t_fScore += missplaced_tiles(env, successor->grid);
+					successor->f_score = successor->g_score + t_fScore;
+            heap_push(openHeap, successor);
                     env->stats.openList_states_complexity++;
                 }
             }

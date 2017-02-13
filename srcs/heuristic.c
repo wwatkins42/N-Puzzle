@@ -72,8 +72,8 @@ float     manhattan(t_env *env, int **curr, int **goal)
     {
         c = find_cell_pos(curr, i, env->size);
         g = find_cell_pos(goal, i, env->size);
-        dx += abs(c.x - g.x);
-        dy += abs(c.y - g.y);
+    	dx += abs(c.x - g.x);
+    	dy += abs(c.y - g.y);
     }
     return (dx + dy);
 }
@@ -87,4 +87,15 @@ float       linear_conflict(t_env *env, int **cur)
 	for (int i = 0; i < env->size * 2; i++)
 		cost += compare_pairs(env, pairs[i].p, env->pairs[i].p);
     return (cost);
+}
+
+float		missplaced_tiles(t_env *env, int **cur)
+{
+	int cost = 0;
+
+	for (int x = 0; x < env->size; x++)
+		for (int y = 0; y < env->size; y++)
+			if (cur[y][x] != env->goal[y][x])
+				cost += 1;
+	return (cost);
 }
