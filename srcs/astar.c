@@ -64,11 +64,9 @@ t_list  *astar(t_env *env, int **start, int **goal)
     t_node  current;
     t_node  *successor = NULL;
     float   t_gScore = 0;
-
-	  float	t_fScore = 0;
-    int     openList_size = 0;
+	float	t_fScore = 0;
     int     id = 0;
-	  int 	temp_size;
+	int 	temp_size;
 
     openHeap = heap_new();
     closedHeap = heap_new();
@@ -93,7 +91,6 @@ t_list  *astar(t_env *env, int **start, int **goal)
                 {
                     successor->pid = current.id;
                     successor->g_score = t_gScore;
-
 					successor->f_score = 0;
 					temp_size = env->size;
 					if ((MANHATTAN & env->opt_heuristic) > 1)
@@ -103,7 +100,7 @@ t_list  *astar(t_env *env, int **start, int **goal)
 					if ((MISSPLACE & env->opt_heuristic) > 1)
 						t_fScore += missplaced_tiles(env, successor->grid);
 					successor->f_score = successor->g_score + t_fScore;
-            heap_push(openHeap, successor);
+            		heap_push(openHeap, successor);
                     env->stats.openList_states_complexity++;
                 }
             }

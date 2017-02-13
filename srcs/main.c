@@ -129,7 +129,6 @@ int     main(int argc, char **argv)
 	while (++i < argc)
 		if (argv[i][0] != '-' && argv[i - 1][0] != '-')
 			break ;
-	printf("%s\n", argv[i] );
 	initialize(&env, argv[i], argc);
     path = astar(&env, env.start, env.goal);
     length = list_size(&path);
